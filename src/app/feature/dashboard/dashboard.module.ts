@@ -8,8 +8,6 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -17,11 +15,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     EstadisticaComponent,
     DetalleComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule
-  ]
+  exports: [DashboardComponent],
+  imports: [CommonModule, DashboardRoutingModule],
 })
-export class DashboardModule { }
+export class DashboardModule {}
