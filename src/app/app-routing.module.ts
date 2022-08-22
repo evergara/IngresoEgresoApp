@@ -1,17 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './feature/auth/components/login/login.component';
-import { RegisterComponent } from './feature/auth/components/register/register.component';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
   {
     path: 'admin',
     loadChildren: () =>
@@ -20,8 +10,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: '',
+    loadChildren: () =>
+      import('./feature/public/public.module').then((m) => m.PublicModule),
+  },
+  {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];
