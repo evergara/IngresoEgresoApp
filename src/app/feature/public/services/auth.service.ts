@@ -21,14 +21,11 @@ export class AuthService {
   isAuth() {
     return this.authFirebase.authState.pipe(map((fbUser) => fbUser !== null));
   }
-  createUser(user: User) {
-    return this.authFirebase.createUserWithEmailAndPassword(
-      user.email,
-      user.password
-    );
+  createUser(email: string, password: string) {
+    return this.authFirebase.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: any, password: any) {
+  login(email: string, password: string) {
     return this.authFirebase.signInWithEmailAndPassword(email, password);
   }
 
