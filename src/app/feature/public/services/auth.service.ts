@@ -7,6 +7,7 @@ import { User } from '../model/user';
   providedIn: 'root',
 })
 export class AuthService {
+  
   constructor(public authFirebase: AngularFireAuth) {}
 
   createUser(user: User) {
@@ -18,5 +19,9 @@ export class AuthService {
 
   login(email: any, password: any) {
     return this.authFirebase.signInWithEmailAndPassword(email, password);
+  }
+
+  logout() {
+     return this.authFirebase.signOut();
   }
 }
