@@ -12,7 +12,7 @@ const routes: Routes = [
 
     children: [
       {
-        path: 'estadisticas',
+        path: '',
         component: EstadisticaComponent,
       },
       {
