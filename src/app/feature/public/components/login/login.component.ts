@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { AuthService } from '../../services/auth.service';
+import { SwalService } from '../../services/swal.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private swalService: SwalService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -26,17 +29,17 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.invalid) return;
-
+    this.swalService.openLoading();
     const { email, password } = this.loginForm.value;
 
     this.auth
       .login(email, password)
       .then((auth) => {
-        console.log(auth);
+        this.swalService.closeLoading();
         this.router.navigate(['/admin']);
       })
       .catch((error) => {
-        console.log(error);
+        this.swalService.showAlertError(error.message, 'Algo salio mal');
       });
   }
 }

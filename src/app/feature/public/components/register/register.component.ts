@@ -1,6 +1,9 @@
+import { SwalService } from './../../services/swal.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
 
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../model/user';
@@ -16,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private swalService: SwalService
   ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
@@ -31,15 +35,15 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
+    this.swalService.openLoading();
     this.auth
       .createUser(this.mapperUser())
       .then((userCredential) => {
-        console.log(userCredential);
+        this.swalService.closeLoading();
         this.router.navigate(['/admin']);
       })
       .catch((error) => {
-        console.error(error);
+        this.swalService.showAlertError(error.message, 'Algo salio mal');
       });
   }
 
