@@ -15,4 +15,8 @@ export class AuthService {
       user.password
     );
   }
+
+  login(email: any, password: any) {
+    return this.authFirebase.signInWithEmailAndPassword(email, password);
+  }
 }
