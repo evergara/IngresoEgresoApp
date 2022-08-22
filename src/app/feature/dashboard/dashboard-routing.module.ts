@@ -4,12 +4,12 @@ import { DashboardComponent } from './dashboard.component';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { IngresoEgresoComponent } from './components/ingreso-egreso/ingreso-egreso.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
+import { AuthGuard } from '../public/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-
     children: [
       {
         path: '',
@@ -24,6 +24,7 @@ const routes: Routes = [
         component: DetalleComponent,
       },
     ],
+    canActivate: [AuthGuard],
   },
   {
     path: '',

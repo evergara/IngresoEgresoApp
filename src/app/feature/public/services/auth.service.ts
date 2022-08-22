@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs/operators';
 
 import { User } from '../model/user';
 
@@ -7,9 +8,19 @@ import { User } from '../model/user';
   providedIn: 'root',
 })
 export class AuthService {
-  
   constructor(public authFirebase: AngularFireAuth) {}
 
+  initAuthListener() {
+    return this.authFirebase.authState.subscribe((fuser) => {
+      console.log(fuser);
+      console.log(fuser?.uid);
+      console.log(fuser?.email);
+    });
+  }
+
+  isAuth() {
+    return this.authFirebase.authState.pipe(map((fbUser) => fbUser !== null));
+  }
   createUser(user: User) {
     return this.authFirebase.createUserWithEmailAndPassword(
       user.email,
@@ -22,6 +33,6 @@ export class AuthService {
   }
 
   logout() {
-     return this.authFirebase.signOut();
+    return this.authFirebase.signOut();
   }
 }
